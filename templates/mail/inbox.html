@@ -1,0 +1,82 @@
+{% extends "mail/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <h2 id="current_user">{{ request.user.email }}</h2>
+
+    <button class="btn btn-sm btn-outline-primary" id="inbox">Inbox</button>
+    <button class="btn btn-sm btn-outline-primary" id="compose">Compose</button>
+    <button class="btn btn-sm btn-outline-primary" id="sent">Sent</button>
+    <button class="btn btn-sm btn-outline-primary" id="archived">Archived</button>
+    <a class="btn btn-sm btn-outline-primary" href="{% url 'logout' %}">Log Out</a>
+    <hr>
+
+    <div id="emails-view">
+    </div>
+
+    <div id="compose-view">
+        <h3>New Email</h3>
+        <form id="compose-form">
+            <div class="form-group">
+                From: <input disabled class="form-control" value="{{ request.user.email }}">
+            </div>
+            <div class="form-group">
+                To: <input id="compose-recipients" class="form-control">
+            </div>
+            <div class="form-group">
+                <input class="form-control" id="compose-subject" placeholder="Subject">
+            </div>
+            <textarea class="form-control" id="compose-body" placeholder="Body"></textarea>
+            <input type="submit" class="btn btn-primary"/>
+        </form>
+    </div>
+
+    <div id= "message-view" style="display: none;">
+        <div class="form-group" style="visibility: hidden">
+        <div class="form-control" id = "email_id">
+        </div>
+        </div>
+        
+        From:
+        <div class="form-group">
+        <div class="form-control" id = "sender">   
+        </div>
+        </div>
+        
+        To:
+        <div class="form-group">
+            <div class="form-control" id = "recipients">   
+        </div>
+        </div>
+
+        <div class="form-group">
+        Subject:
+        <div class="form-control" id = "Subject">
+        </div>
+        </div>
+        
+        <div class="form-group">
+        Message:
+        <div class="form-control" id = "message" style="min-height: 150px;" >
+        </div>
+        </div>
+
+        <div class="form-group">
+        Timestamp:
+        <div class="form-control" id = "timestamp"> 
+        </div>
+        </div>
+
+        <button class="btn btn-lg btn-outline-primary" id="reply" style="width: 300px;margin-bottom: 10px;">Reply</button>
+
+        <button id="archive-btn" class="btn btn-lg btn-outline-primary" style="width: 300px;">Archive</button>
+
+        <button id="unarchive-btn" class="btn btn-lg btn-outline-primary" style="width: 300px;">Unarchive</button>
+        
+
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'mail/inbox.js' %}"></script>
+{% endblock %}
